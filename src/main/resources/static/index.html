@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Cars API</title>
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="text-center">Cars API</h1>
+    <p>given a GET Rest endpoint on this URL api/cars that returns a number of cars in Json like this [{"id":1,"brand":"Volvo","model":"V70","pricePrDay":500.0} ...
+        Create a simple index.html file with javascript that fetches the cars an builds a table, using map, with all cars.
+        Please style with bootstrap 5</p>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Price per Day</th>
+        </tr>
+        </thead>
+        <tbody id="cars-table-body"></tbody>
+    </table>
+</div>
+<script>
+    fetch("api/cars")
+        .then(response => response.json())
+        .then(cars => {
+            let tableBody = document.querySelector("#cars-table-body");
+
+            let rows = cars.map(car => {
+                return `
+              <tr>
+                <td>${car.id}</td>
+                <td>${car.brand}</td>
+                <td>${car.model}</td>
+                <td>${car.pricePrDay}</td>
+              </tr>
+            `;
+            });
+
+            tableBody.innerHTML = rows.join("");
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+</body>
+</html>
