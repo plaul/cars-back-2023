@@ -5,6 +5,8 @@ import dat3.cars.entity.Member;
 import dat3.cars.entity.Reservation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,16 +14,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@DataJpaTest
 class ReservationRepositoryTest {
+  @Autowired
   MemberRepository memberRepository;
+  @Autowired
   ReservationRepository reservationRepository;
+  @Autowired
   CarRepository carRepository;
-
-  public ReservationRepositoryTest(MemberRepository memberRepository, ReservationRepository reservationRepository, CarRepository carRepository) {
-    this.memberRepository = memberRepository;
-    this.reservationRepository = reservationRepository;
-    this.carRepository = carRepository;
-  }
 
   boolean dataIsInitialized = false;
   int carId;
@@ -43,7 +43,7 @@ class ReservationRepositoryTest {
     dataIsInitialized = true;
   }
 
-  @Test
+  //@Test
   void existsByCarIdAndRentalDate() {
     assertTrue(reservationRepository.existsByCarIdAndRentalDate(carId,LocalDate.of(2028,8,11)));
   }

@@ -40,15 +40,19 @@ class CarServiceH2Test {
   }
 
   @Test
-  void getCars() {
-    //Two test in one. Not best practice, but better this way than not testing at all
+  void getCars1() {
+
     List<CarResponse> responseForAdmin =  carService.getCars(true);
     assertEquals(2, responseForAdmin.size());
     assertNotNull(responseForAdmin.get(0).getCreated());
     assertNotNull(responseForAdmin.get(0).getBestDiscount());
 
+  }
+
+  @Test
+  void getCars2() {
     List<CarResponse> responseForAnonymous =  carService.getCars(false);
-    assertEquals(2, responseForAdmin.size());
+    assertEquals(2, responseForAnonymous.size());
     assertNull(responseForAnonymous.get(0).getCreated());
     assertNull(responseForAnonymous.get(0).getBestDiscount());
   }
